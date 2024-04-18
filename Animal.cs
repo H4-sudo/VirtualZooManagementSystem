@@ -8,5 +8,7 @@ namespace VirtualZooManagementSystem
 {
     internal class Animal
     {
+        public string Name { get; set; }
+        public string Age { get; set; }
     }
 }
