@@ -14,7 +14,7 @@ namespace VirtualZooManagementSystem
 {
     public partial class VirtualZooMangementSystem : Form
     {
-        SqlConnection connect = new SqlConnection(@"Data Source=H4Z3Y_\JEFFY;Initial Catalog=animals;Integrated Security=True;Trust Server Certificate=True");
+        SqlConnection connect = new SqlConnection(@"Data Source=H4Z3Y_\JEFFY;Initial Catalog=animals;Integrated Security=True;TrustServerCertificate=True");
 
         public VirtualZooMangementSystem()
         {
@@ -29,6 +29,11 @@ namespace VirtualZooManagementSystem
         private void exit_button_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void animalAddMenu_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -37,6 +37,7 @@
             this.exit_button = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.viewAllAnimalsButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -44,6 +45,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.MediumAquamarine;
+            this.panel1.Controls.Add(this.viewAllAnimalsButton);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.checkAnimalActivity);
             this.panel1.Controls.Add(this.animalAddMenu);
@@ -64,6 +66,7 @@
             this.animalAddMenu.TabIndex = 6;
             this.animalAddMenu.Text = "Add a new Animal";
             this.animalAddMenu.UseVisualStyleBackColor = true;
+            this.animalAddMenu.Click += new System.EventHandler(this.animalAddMenu_Click);
             // 
             // animalHealthMenu
             // 
@@ -137,6 +140,16 @@
             this.panel3.Size = new System.Drawing.Size(573, 569);
             this.panel3.TabIndex = 8;
             // 
+            // viewAllAnimalsButton
+            // 
+            this.viewAllAnimalsButton.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.viewAllAnimalsButton.Location = new System.Drawing.Point(52, 274);
+            this.viewAllAnimalsButton.Name = "viewAllAnimalsButton";
+            this.viewAllAnimalsButton.Size = new System.Drawing.Size(178, 30);
+            this.viewAllAnimalsButton.TabIndex = 7;
+            this.viewAllAnimalsButton.Text = "See All Animals";
+            this.viewAllAnimalsButton.UseVisualStyleBackColor = true;
+            // 
             // VirtualZooMangementSystem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -172,6 +185,7 @@
         private System.Windows.Forms.Button checkAnimalActivity;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button viewAllAnimalsButton;
     }
 }
 
