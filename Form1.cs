@@ -7,14 +7,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace VirtualZooManagementSystem
 {
-    public partial class Form1 : Form
+    public partial class VirtualZooMangementSystem : Form
     {
-        public Form1()
+        SqlConnection connect = new SqlConnection(@"Data Source=H4Z3Y_\JEFFY;Initial Catalog=animals;Integrated Security=True;Trust Server Certificate=True");
+
+        public VirtualZooMangementSystem()
         {
             InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void exit_button_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

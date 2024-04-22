@@ -1,0 +1,10 @@
+﻿DROP TABLE "animals"
+
+CREATE TABLE "animals" (
+	ID INTEGER PRIMARY KEY IDENTITY(1, 1),
+	Name VARCHAR(50) NOT NULL,
+	Age INTEGER NOT NULL,
+	AnimalType VARCHAR(50) NOT NULL
+);
+
+SELECT * FROM animals;
