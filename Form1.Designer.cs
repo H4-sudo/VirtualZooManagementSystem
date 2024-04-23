@@ -29,17 +29,19 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.viewAllAnimalsButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.checkAnimalActivity = new System.Windows.Forms.Button();
             this.animalAddMenu = new System.Windows.Forms.Button();
             this.animalHealthMenu = new System.Windows.Forms.Button();
-            this.checkAnimalActivity = new System.Windows.Forms.Button();
             this.animalFeedMenu = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.exit_button = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.viewAllAnimalsButton = new System.Windows.Forms.Button();
+            this.addNewAnimal2 = new VirtualZooManagementSystem.AddNewAnimal();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -54,8 +56,40 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(280, 648);
+            this.panel1.Size = new System.Drawing.Size(280, 688);
             this.panel1.TabIndex = 0;
+            // 
+            // viewAllAnimalsButton
+            // 
+            this.viewAllAnimalsButton.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.viewAllAnimalsButton.Location = new System.Drawing.Point(52, 274);
+            this.viewAllAnimalsButton.Name = "viewAllAnimalsButton";
+            this.viewAllAnimalsButton.Size = new System.Drawing.Size(178, 30);
+            this.viewAllAnimalsButton.TabIndex = 7;
+            this.viewAllAnimalsButton.Text = "See All Animals";
+            this.viewAllAnimalsButton.UseVisualStyleBackColor = true;
+            this.viewAllAnimalsButton.Click += new System.EventHandler(this.viewAllAnimalsButton_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Cooper Black", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.Window;
+            this.label1.Location = new System.Drawing.Point(8, 32);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(272, 19);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Virtual Zoo Management System";
+            // 
+            // checkAnimalActivity
+            // 
+            this.checkAnimalActivity.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkAnimalActivity.Location = new System.Drawing.Point(52, 202);
+            this.checkAnimalActivity.Name = "checkAnimalActivity";
+            this.checkAnimalActivity.Size = new System.Drawing.Size(178, 30);
+            this.checkAnimalActivity.TabIndex = 4;
+            this.checkAnimalActivity.Text = "Check Animal Activity";
+            this.checkAnimalActivity.UseVisualStyleBackColor = true;
             // 
             // animalAddMenu
             // 
@@ -78,16 +112,6 @@
             this.animalHealthMenu.Text = "Check Animal Health";
             this.animalHealthMenu.UseVisualStyleBackColor = true;
             // 
-            // checkAnimalActivity
-            // 
-            this.checkAnimalActivity.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkAnimalActivity.Location = new System.Drawing.Point(52, 202);
-            this.checkAnimalActivity.Name = "checkAnimalActivity";
-            this.checkAnimalActivity.Size = new System.Drawing.Size(178, 30);
-            this.checkAnimalActivity.TabIndex = 4;
-            this.checkAnimalActivity.Text = "Check Animal Activity";
-            this.checkAnimalActivity.UseVisualStyleBackColor = true;
-            // 
             // animalFeedMenu
             // 
             this.animalFeedMenu.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -97,17 +121,7 @@
             this.animalFeedMenu.TabIndex = 3;
             this.animalFeedMenu.Text = "Feed an Animal";
             this.animalFeedMenu.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Cooper Black", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.Window;
-            this.label1.Location = new System.Drawing.Point(8, 32);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(272, 19);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Virtual Zoo Management System";
+            this.animalFeedMenu.Click += new System.EventHandler(this.animalFeedMenu_Click);
             // 
             // exit_button
             // 
@@ -115,7 +129,7 @@
             this.exit_button.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.exit_button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.exit_button.Font = new System.Drawing.Font("Bookman Old Style", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exit_button.Location = new System.Drawing.Point(534, 27);
+            this.exit_button.Location = new System.Drawing.Point(724, 29);
             this.exit_button.Name = "exit_button";
             this.exit_button.Size = new System.Drawing.Size(27, 24);
             this.exit_button.TabIndex = 1;
@@ -129,33 +143,32 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(280, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(573, 79);
+            this.panel2.Size = new System.Drawing.Size(763, 79);
             this.panel2.TabIndex = 7;
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.addNewAnimal2);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(280, 79);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(573, 569);
+            this.panel3.Size = new System.Drawing.Size(763, 609);
             this.panel3.TabIndex = 8;
             // 
-            // viewAllAnimalsButton
+            // addNewAnimal2
             // 
-            this.viewAllAnimalsButton.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.viewAllAnimalsButton.Location = new System.Drawing.Point(52, 274);
-            this.viewAllAnimalsButton.Name = "viewAllAnimalsButton";
-            this.viewAllAnimalsButton.Size = new System.Drawing.Size(178, 30);
-            this.viewAllAnimalsButton.TabIndex = 7;
-            this.viewAllAnimalsButton.Text = "See All Animals";
-            this.viewAllAnimalsButton.UseVisualStyleBackColor = true;
+            this.addNewAnimal2.Location = new System.Drawing.Point(0, 0);
+            this.addNewAnimal2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.addNewAnimal2.Name = "addNewAnimal2";
+            this.addNewAnimal2.Size = new System.Drawing.Size(763, 609);
+            this.addNewAnimal2.TabIndex = 0;
             // 
             // VirtualZooMangementSystem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.ClientSize = new System.Drawing.Size(853, 648);
+            this.ClientSize = new System.Drawing.Size(1043, 688);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -170,6 +183,7 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -186,6 +200,10 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button viewAllAnimalsButton;
+        private AddNewAnimal addNewAnimal1;
+        private FeedAnimals feedAnimals1;
+        private SeeAllAnimals seeAllAnimals1;
+        private AddNewAnimal addNewAnimal2;
     }
 }
 

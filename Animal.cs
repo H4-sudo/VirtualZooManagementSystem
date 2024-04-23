@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VirtualZooManagementSystem
 {
     public abstract class Animal
     {
+        public int ID { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
         public bool IsAlive { get; set; }
         
     }
+
     public interface IFeedable
     {
         void IsHungry();
@@ -51,6 +49,7 @@ namespace VirtualZooManagementSystem
         int hunger = 10;
         int thirst = 20;
         int energy = 100;
+
         public void Hunger()
         {
             Random random = new Random();
@@ -375,6 +374,7 @@ namespace VirtualZooManagementSystem
         }
 
     }
+
 
 }
 

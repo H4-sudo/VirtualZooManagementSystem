@@ -16,5 +16,25 @@ namespace VirtualZooManagementSystem
         {
             InitializeComponent();
         }
+
+        private void feedAnimalButton_Click(object sender, EventArgs e)
+        {
+                        
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AnimalNameComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string animalName = AnimalNameComboBox.SelectedItem.ToString();
+        }
+
+        private void AnimalTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string animalType = AnimalTypeComboBox.SelectedItem.ToString();
+        }
     }
 }

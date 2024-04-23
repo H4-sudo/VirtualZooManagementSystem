@@ -1,29 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data;
-using System.Data.SqlClient;
 
 namespace VirtualZooManagementSystem
 {
     public partial class VirtualZooMangementSystem : Form
     {
-        SqlConnection connect = new SqlConnection(@"Data Source=H4Z3Y_\JEFFY;Initial Catalog=animals;Integrated Security=True;TrustServerCertificate=True");
-
+        private ZooContext context;
         public VirtualZooMangementSystem()
         {
             InitializeComponent();
+            context = new ZooContext();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            addNewAnimal1.Visible = false;
+            seeAllAnimals1.Visible = false;
+            feedAnimals1.Visible = false;
         }
 
         private void exit_button_Click(object sender, EventArgs e)
@@ -33,7 +26,31 @@ namespace VirtualZooManagementSystem
 
         private void animalAddMenu_Click(object sender, EventArgs e)
         {
-
+            addNewAnimal1.Visible = true;
+            feedAnimals1.Visible = false;
+            seeAllAnimals1.Visible = false;
+            
         }
+
+        private void seeAllAnimals1_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void viewAllAnimalsButton_Click(object sender, EventArgs e)
+        {
+            addNewAnimal1.Visible = false;
+            feedAnimals1.Visible = false;
+            seeAllAnimals1.Visible = true;
+        }
+
+        private void animalFeedMenu_Click(object sender, EventArgs e)
+        {
+            addNewAnimal1.Visible = false;
+            feedAnimals1.Visible = true;
+            seeAllAnimals1.Visible = false;
+        }
+
+
     }
 }
