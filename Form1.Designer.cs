@@ -31,14 +31,14 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.viewAllAnimalsButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.checkAnimalActivity = new System.Windows.Forms.Button();
             this.animalAddMenu = new System.Windows.Forms.Button();
-            this.animalHealthMenu = new System.Windows.Forms.Button();
             this.animalFeedMenu = new System.Windows.Forms.Button();
             this.exit_button = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.addNewAnimal2 = new VirtualZooManagementSystem.AddNewAnimal();
+            this.feedAnimals2 = new VirtualZooManagementSystem.FeedAnimals();
+            this.seeAllAnimals2 = new VirtualZooManagementSystem.SeeAllAnimals();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -49,20 +49,18 @@
             this.panel1.BackColor = System.Drawing.Color.MediumAquamarine;
             this.panel1.Controls.Add(this.viewAllAnimalsButton);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.checkAnimalActivity);
             this.panel1.Controls.Add(this.animalAddMenu);
-            this.panel1.Controls.Add(this.animalHealthMenu);
             this.panel1.Controls.Add(this.animalFeedMenu);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(280, 688);
+            this.panel1.Size = new System.Drawing.Size(280, 733);
             this.panel1.TabIndex = 0;
             // 
             // viewAllAnimalsButton
             // 
             this.viewAllAnimalsButton.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.viewAllAnimalsButton.Location = new System.Drawing.Point(52, 274);
+            this.viewAllAnimalsButton.Location = new System.Drawing.Point(52, 250);
             this.viewAllAnimalsButton.Name = "viewAllAnimalsButton";
             this.viewAllAnimalsButton.Size = new System.Drawing.Size(178, 30);
             this.viewAllAnimalsButton.TabIndex = 7;
@@ -81,20 +79,10 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Virtual Zoo Management System";
             // 
-            // checkAnimalActivity
-            // 
-            this.checkAnimalActivity.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkAnimalActivity.Location = new System.Drawing.Point(52, 202);
-            this.checkAnimalActivity.Name = "checkAnimalActivity";
-            this.checkAnimalActivity.Size = new System.Drawing.Size(178, 30);
-            this.checkAnimalActivity.TabIndex = 4;
-            this.checkAnimalActivity.Text = "Check Animal Activity";
-            this.checkAnimalActivity.UseVisualStyleBackColor = true;
-            // 
             // animalAddMenu
             // 
             this.animalAddMenu.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.animalAddMenu.Location = new System.Drawing.Point(52, 130);
+            this.animalAddMenu.Location = new System.Drawing.Point(52, 178);
             this.animalAddMenu.Name = "animalAddMenu";
             this.animalAddMenu.Size = new System.Drawing.Size(178, 30);
             this.animalAddMenu.TabIndex = 6;
@@ -102,24 +90,14 @@
             this.animalAddMenu.UseVisualStyleBackColor = true;
             this.animalAddMenu.Click += new System.EventHandler(this.animalAddMenu_Click);
             // 
-            // animalHealthMenu
-            // 
-            this.animalHealthMenu.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.animalHealthMenu.Location = new System.Drawing.Point(52, 238);
-            this.animalHealthMenu.Name = "animalHealthMenu";
-            this.animalHealthMenu.Size = new System.Drawing.Size(178, 30);
-            this.animalHealthMenu.TabIndex = 5;
-            this.animalHealthMenu.Text = "Check Animal Health";
-            this.animalHealthMenu.UseVisualStyleBackColor = true;
-            // 
             // animalFeedMenu
             // 
             this.animalFeedMenu.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.animalFeedMenu.Location = new System.Drawing.Point(52, 166);
+            this.animalFeedMenu.Location = new System.Drawing.Point(52, 214);
             this.animalFeedMenu.Name = "animalFeedMenu";
             this.animalFeedMenu.Size = new System.Drawing.Size(178, 30);
             this.animalFeedMenu.TabIndex = 3;
-            this.animalFeedMenu.Text = "Feed an Animal";
+            this.animalFeedMenu.Text = "Tend to an Animal";
             this.animalFeedMenu.UseVisualStyleBackColor = true;
             this.animalFeedMenu.Click += new System.EventHandler(this.animalFeedMenu_Click);
             // 
@@ -148,11 +126,13 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.seeAllAnimals2);
+            this.panel3.Controls.Add(this.feedAnimals2);
             this.panel3.Controls.Add(this.addNewAnimal2);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(280, 79);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(763, 609);
+            this.panel3.Size = new System.Drawing.Size(763, 654);
             this.panel3.TabIndex = 8;
             // 
             // addNewAnimal2
@@ -160,15 +140,34 @@
             this.addNewAnimal2.Location = new System.Drawing.Point(0, 0);
             this.addNewAnimal2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.addNewAnimal2.Name = "addNewAnimal2";
-            this.addNewAnimal2.Size = new System.Drawing.Size(763, 609);
+            this.addNewAnimal2.Size = new System.Drawing.Size(763, 650);
             this.addNewAnimal2.TabIndex = 0;
+            this.addNewAnimal2.Load += new System.EventHandler(this.addNewAnimal2_Load);
+            // 
+            // feedAnimals2
+            // 
+            this.feedAnimals2.Location = new System.Drawing.Point(0, 0);
+            this.feedAnimals2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.feedAnimals2.Name = "feedAnimals2";
+            this.feedAnimals2.Size = new System.Drawing.Size(763, 654);
+            this.feedAnimals2.TabIndex = 1;
+            this.feedAnimals2.Load += new System.EventHandler(this.feedAnimals2_Load_1);
+            // 
+            // seeAllAnimals2
+            // 
+            this.seeAllAnimals2.Location = new System.Drawing.Point(0, 0);
+            this.seeAllAnimals2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.seeAllAnimals2.Name = "seeAllAnimals2";
+            this.seeAllAnimals2.Size = new System.Drawing.Size(763, 654);
+            this.seeAllAnimals2.TabIndex = 2;
+            this.seeAllAnimals2.Load += new System.EventHandler(this.seeAllAnimals2_Load_1);
             // 
             // VirtualZooMangementSystem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.ClientSize = new System.Drawing.Size(1043, 688);
+            this.ClientSize = new System.Drawing.Size(1043, 733);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -195,8 +194,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button animalFeedMenu;
         private System.Windows.Forms.Button animalAddMenu;
-        private System.Windows.Forms.Button animalHealthMenu;
-        private System.Windows.Forms.Button checkAnimalActivity;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button viewAllAnimalsButton;
@@ -204,6 +201,8 @@
         private FeedAnimals feedAnimals1;
         private SeeAllAnimals seeAllAnimals1;
         private AddNewAnimal addNewAnimal2;
+        private FeedAnimals feedAnimals2;
+        private SeeAllAnimals seeAllAnimals2;
     }
 }
 

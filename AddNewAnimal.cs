@@ -10,7 +10,7 @@ namespace VirtualZooManagementSystem
         int animalAge;
         string animalType;
 
-        private string connectionString = "Data Source=H4Z3Y_\\JEFFY;Initial Catalog=animals;Integrated Security=True;Trust Server Certificate=True";
+        private string connectionString = "Data Source=H4Z3Y_\\JEFFY;Initial Catalog=animals;Integrated Security=True;";
         public AddNewAnimal()
         {
             InitializeComponent();
@@ -40,7 +40,7 @@ namespace VirtualZooManagementSystem
                 {
                     connection.Open();
 
-                    string query = "INSERT INTO Animals (Name, Age, AnimalType, IsAlive) VALUES (@Name, @Age, @AnimalType, 1)";
+                    string query = "INSERT INTO Animals (Name, Age, AnimalType) VALUES (@Name, @Age, @AnimalType)";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@Name", animalName);
                     command.Parameters.AddWithValue("@Age", animalAge);

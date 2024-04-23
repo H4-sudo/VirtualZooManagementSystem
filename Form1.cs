@@ -5,18 +5,16 @@ namespace VirtualZooManagementSystem
 {
     public partial class VirtualZooMangementSystem : Form
     {
-        private ZooContext context;
         public VirtualZooMangementSystem()
         {
             InitializeComponent();
-            context = new ZooContext();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            addNewAnimal1.Visible = false;
-            seeAllAnimals1.Visible = false;
-            feedAnimals1.Visible = false;
+            addNewAnimal2.Visible = false;
+            seeAllAnimals2.Visible = false;
+            feedAnimals2.Visible = false;
         }
 
         private void exit_button_Click(object sender, EventArgs e)
@@ -26,31 +24,49 @@ namespace VirtualZooManagementSystem
 
         private void animalAddMenu_Click(object sender, EventArgs e)
         {
-            addNewAnimal1.Visible = true;
-            feedAnimals1.Visible = false;
-            seeAllAnimals1.Visible = false;
-            
-        }
-
-        private void seeAllAnimals1_Load(object sender, EventArgs e)
-        {
+            addNewAnimal2.Visible = true;
+            feedAnimals2.Visible = false;
+            seeAllAnimals2.Visible = false;
             
         }
 
         private void viewAllAnimalsButton_Click(object sender, EventArgs e)
         {
-            addNewAnimal1.Visible = false;
-            feedAnimals1.Visible = false;
-            seeAllAnimals1.Visible = true;
+            addNewAnimal2.Visible = false;
+            feedAnimals2.Visible = false;
+            seeAllAnimals2.Visible = true;
         }
 
         private void animalFeedMenu_Click(object sender, EventArgs e)
         {
-            addNewAnimal1.Visible = false;
-            feedAnimals1.Visible = true;
-            seeAllAnimals1.Visible = false;
+            addNewAnimal2.Visible = false;
+            feedAnimals2.Visible = true;
+            seeAllAnimals2.Visible = false;
         }
 
+        private void addNewAnimal2_Load(object sender, EventArgs e)
+        {
 
+        }
+
+        private void seeAllAnimals2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void feedAnimals2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void feedAnimals2_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void seeAllAnimals2_Load_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

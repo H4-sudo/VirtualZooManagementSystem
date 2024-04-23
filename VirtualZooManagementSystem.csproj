@@ -69,6 +69,7 @@
       <DependentUpon>AddNewAnimal.cs</DependentUpon>
     </Compile>
     <Compile Include="Animal.cs" />
+    <Compile Include="AnimalDatabase.cs" />
     <Compile Include="animalsDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

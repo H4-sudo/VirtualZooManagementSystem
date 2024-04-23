@@ -16,5 +16,18 @@ namespace VirtualZooManagementSystem
         {
             InitializeComponent();
         }
+
+        private void fillByToolStripButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.animalsTableAdapter.FillBy(this.animalsDataSet.animals);
+            }
+            catch (System.Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+
+        }
     }
 }

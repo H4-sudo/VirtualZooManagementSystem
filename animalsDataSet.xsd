@@ -62,29 +62,38 @@ SELECT ID, Name, Age, AnimalType FROM animals WHERE (ID = @ID)</CommandText>
               <Mapping SourceColumn="Age" DataSetColumn="Age" />
               <Mapping SourceColumn="AnimalType" DataSetColumn="AnimalType" />
             </Mappings>
-            <Sources />
+            <Sources>
+              <DbSource ConnectionRef="animalsConnectionString (Settings)" DbObjectName="animals.dbo.animals" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="FillBy" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillBy">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT ID, Name, Age, AnimalType FROM dbo.animals</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
           </TableAdapter>
         </Tables>
         <Sources />
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="animalsDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_UserDSName="animalsDataSet" msprop:Generator_DataSetName="animalsDataSet">
+  <xs:element name="animalsDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="animalsDataSet" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="animalsDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="animals" msprop:Generator_RowEvHandlerName="animalsRowChangeEventHandler" msprop:Generator_RowDeletedName="animalsRowDeleted" msprop:Generator_RowDeletingName="animalsRowDeleting" msprop:Generator_RowEvArgName="animalsRowChangeEvent" msprop:Generator_TablePropName="animals" msprop:Generator_RowChangedName="animalsRowChanged" msprop:Generator_RowChangingName="animalsRowChanging" msprop:Generator_TableClassName="animalsDataTable" msprop:Generator_RowClassName="animalsRow" msprop:Generator_TableVarName="tableanimals" msprop:Generator_UserTableName="animals">
+        <xs:element name="animals" msprop:Generator_RowClassName="animalsRow" msprop:Generator_RowEvHandlerName="animalsRowChangeEventHandler" msprop:Generator_RowDeletedName="animalsRowDeleted" msprop:Generator_RowDeletingName="animalsRowDeleting" msprop:Generator_RowEvArgName="animalsRowChangeEvent" msprop:Generator_TablePropName="animals" msprop:Generator_RowChangedName="animalsRowChanged" msprop:Generator_UserTableName="animals" msprop:Generator_RowChangingName="animalsRowChanging" msprop:Generator_TableClassName="animalsDataTable" msprop:Generator_TableVarName="tableanimals">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_UserColumnName="ID" type="xs:int" />
-              <xs:element name="Name" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_UserColumnName="Name">
+              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_UserColumnName="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnVarNameInTable="columnID" type="xs:int" />
+              <xs:element name="Name" msprop:Generator_UserColumnName="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnVarNameInTable="columnName">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Age" msprop:Generator_ColumnPropNameInRow="Age" msprop:Generator_ColumnPropNameInTable="AgeColumn" msprop:Generator_ColumnVarNameInTable="columnAge" msprop:Generator_UserColumnName="Age" type="xs:int" />
-              <xs:element name="AnimalType" msprop:Generator_ColumnPropNameInRow="AnimalType" msprop:Generator_ColumnPropNameInTable="AnimalTypeColumn" msprop:Generator_ColumnVarNameInTable="columnAnimalType" msprop:Generator_UserColumnName="AnimalType">
+              <xs:element name="Age" msprop:Generator_UserColumnName="Age" msprop:Generator_ColumnPropNameInTable="AgeColumn" msprop:Generator_ColumnPropNameInRow="Age" msprop:Generator_ColumnVarNameInTable="columnAge" type="xs:int" />
+              <xs:element name="AnimalType" msprop:Generator_UserColumnName="AnimalType" msprop:Generator_ColumnPropNameInTable="AnimalTypeColumn" msprop:Generator_ColumnPropNameInRow="AnimalType" msprop:Generator_ColumnVarNameInTable="columnAnimalType">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />

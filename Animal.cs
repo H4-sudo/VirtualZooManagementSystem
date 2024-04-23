@@ -1,14 +1,25 @@
 ﻿using System;
+using System.Media;
 
 namespace VirtualZooManagementSystem
 {
-    public abstract class Animal
+    public abstract class Animal : IFeedable, IMovable, ISleepable, ISoundable, IThirsty
     {
         public int ID { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
-        public bool IsAlive { get; set; }
-        
+
+        public abstract void Eat();
+        public abstract void Energy();
+        public abstract void Hunger();
+        public abstract void IsHungry();
+        public abstract void IsThirsty();
+        public abstract void MakeSound();
+        public abstract void Move();
+        public abstract void Sleep();
+        public abstract void Stop();
+        public abstract void StopSound();
+        public abstract void Thirst();
     }
 
     public interface IFeedable
@@ -44,13 +55,13 @@ namespace VirtualZooManagementSystem
         void IsThirsty();
     }
 
-    public class Lion : Animal, IFeedable, IMovable, ISleepable, ISoundable, IThirsty
+    public class Lion : Animal
     {
         int hunger = 10;
         int thirst = 20;
         int energy = 100;
 
-        public void Hunger()
+        public override void Hunger()
         {
             Random random = new Random();
             hunger += random.Next(1, 10);
@@ -59,21 +70,21 @@ namespace VirtualZooManagementSystem
                 this.IsHungry();
             } else if (hunger > 100)
             {
-                this.IsAlive = false;
+                energy = 10;
             }
         }
 
-        public void IsHungry()
+        public override void IsHungry()
         {
             energy--;
         }
 
-        public void Eat()
+        public override void Eat()
         {
             hunger -= 10;
         }
 
-        public void Move()
+        public override void Move()
         {
             energy--;
             thirst++;
@@ -81,55 +92,55 @@ namespace VirtualZooManagementSystem
 
         }
 
-        public void Energy()
+        public override void Energy()
         {
             energy++;
         }
 
-        public void Stop()
+        public override void Stop()
         {
             energy++;
         }
 
-        public void Sleep()
+        public override void Sleep()
         {
             energy += 10;
         }
 
-        public void Thirst()
+        public override void Thirst()
         {
             thirst++;
         }
 
-        public void IsThirsty()
+        public override void IsThirsty()
         {
             if (thirst > 50)
             {
                 energy--;
             } else if (thirst > 100)
             {
-                this.IsAlive = false;
+                energy = 10;
             }
         }
 
-        public void MakeSound()
+        public override void MakeSound()
         {
-            Console.WriteLine("Roar");
+            SoundPlayer sound = new SoundPlayer("lion-roar.wav");
         }
 
-        public void StopSound()
+        public override void StopSound()
         {
             Console.WriteLine("...");
         }
 
     }
 
-    public class Elephant : Animal, IFeedable, IMovable, ISleepable, ISoundable, IThirsty
+    public class Elephant : Animal
     {
         int hunger = 10;
         int thirst = 20;
         int energy = 100;
-        public void Hunger()
+        public override void Hunger()
         {
             Random random = new Random();
             hunger += random.Next(1, 10);
@@ -138,21 +149,21 @@ namespace VirtualZooManagementSystem
                 this.IsHungry();
             } else if (hunger > 100)
             {
-                this.IsAlive = false;
+                energy = 10;
             }
         }
 
-        public void IsHungry()
+        public override void IsHungry()
         {
             energy--;
         }
 
-        public void Eat()
+        public override void Eat()
         {
             hunger -= 10;
         }
 
-        public void Move()
+        public override void Move()
         {
             energy--;
             thirst++;
@@ -160,55 +171,55 @@ namespace VirtualZooManagementSystem
 
         }
 
-        public void Energy()
+        public override void Energy()
         {
             energy++;
         }
 
-        public void Stop()
+        public override void Stop()
         {
             energy++;
         }
 
-        public void Sleep()
+        public override void Sleep()
         {
             energy += 10;
         }
 
-        public void Thirst()
+        public override void Thirst()
         {
             thirst++;
         }
 
-        public void IsThirsty()
+        public override void IsThirsty()
         {
             if (thirst > 50)
             {
                 energy--;
             } else if (thirst > 100)
             {
-                this.IsAlive = false;
+                energy = 10;
             }
         }
 
-        public void MakeSound()
+        public override void MakeSound()
         {
-            Console.WriteLine("Trumpet");
+            SoundPlayer sound = new SoundPlayer("elephant.wav");
         }
 
-        public void StopSound()
+        public override void StopSound()
         {
             Console.WriteLine("...");
         }
 
     }
 
-    public class Parrot : Animal, IFeedable, IMovable, ISleepable, ISoundable, IThirsty
+    public class Parrot : Animal
     {
         int hunger = 10;
         int thirst = 20;
         int energy = 100;
-        public void Hunger()
+        public override void Hunger()
         {
             Random random = new Random();
             hunger += random.Next(1, 10);
@@ -217,21 +228,21 @@ namespace VirtualZooManagementSystem
                 this.IsHungry();
             } else if (hunger > 100)
             {
-                this.IsAlive = false;
+                energy = 10;
             }
         }
 
-        public void IsHungry()
+        public override void IsHungry()
         {
             energy--;
         }
 
-        public void Eat()
+        public override void Eat()
         {
             hunger -= 10;
         }
 
-        public void Move()
+        public override void Move()
         {
             energy--;
             thirst++;
@@ -239,69 +250,55 @@ namespace VirtualZooManagementSystem
 
         }
 
-        public void Fly()
-        {
-            energy--;
-            thirst++;
-            hunger++;
-        }
-
-        public void Speak()
-        {
-            energy--;
-            thirst++;
-            hunger++;
-        }
-
-        public void Energy()
+        public override void Energy()
         {
             energy++;
         }
 
-        public void Stop()
+        public override void Stop()
         {
             energy++;
         }
 
-        public void Sleep()
+        public override void Sleep()
         {
             energy += 10;
         }
 
-        public void Thirst()
+        public override void Thirst()
         {
             thirst++;
         }
 
-        public void IsThirsty()
+        public override void IsThirsty()
         {
             if (thirst > 50)
             {
                 energy--;
             } else if (thirst > 100)
             {
-                this.IsAlive = false;
+                energy = 10;
             }
         }
 
-        public void MakeSound()
+        public override void MakeSound()
         {
-            Console.WriteLine("Chirp");
+            SoundPlayer sound = new SoundPlayer("parrot.wav");
         }
 
-        public void StopSound()
+        public override void StopSound()
         {
             Console.WriteLine("...");
         }
 
     }
 
-    public class Turtle : Animal, IFeedable, IMovable, ISleepable, ISoundable, IThirsty
+    public class Turtle : Animal
     {
         int hunger = 10;
         int thirst = 20;
         int energy = 100;
-        public void Hunger()
+        public override void Hunger()
         {
             Random random = new Random();
             hunger += random.Next(1, 10);
@@ -310,21 +307,21 @@ namespace VirtualZooManagementSystem
                 this.IsHungry();
             } else if (hunger > 100)
             {
-                this.IsAlive = false;
+                energy = 10;
             }
         }
 
-        public void IsHungry()
+        public override void IsHungry()
         {
             energy--;
         }
 
-        public void Eat()
+        public override void Eat()
         {
             hunger -= 10;
         }
 
-        public void Move()
+        public override void Move()
         {
             energy--;
             thirst++;
@@ -332,49 +329,48 @@ namespace VirtualZooManagementSystem
 
         }
 
-        public void Energy()
+        public override void Energy()
         {
             energy++;
         }
 
-        public void Stop()
+        public override void Stop()
         {
             energy++;
         }
 
-        public void Sleep()
+        public override void Sleep()
         {
             energy += 10;
         }
 
-        public void Thirst()
+        public override void Thirst()
         {
             thirst++;
         }
 
-        public void IsThirsty()
+        public override void IsThirsty()
         {
             if (thirst > 50)
             {
                 energy--;
             } else if (thirst > 100)
             {
-                this.IsAlive = false;
+                energy = 10;
             }
         }
 
-        public void MakeSound()
+        public override void MakeSound()
         {
-            Console.WriteLine("...");
+            SoundPlayer sound = new SoundPlayer("turtle.wav");
         }
 
-        public void StopSound()
+        public override void StopSound()
         {
             Console.WriteLine("...");
         }
 
     }
-
 
 }
 
