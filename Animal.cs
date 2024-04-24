@@ -130,7 +130,7 @@ namespace VirtualZooManagementSystem
 
         public override void Thirst()
         {
-            thirst++;
+            thirst += 10;
         }
 
         public override void IsThirsty()
@@ -226,7 +226,7 @@ namespace VirtualZooManagementSystem
 
         public override void Thirst()
         {
-            thirst++;
+            thirst -= 10;
         }
 
         public override void IsThirsty()
@@ -321,7 +321,7 @@ namespace VirtualZooManagementSystem
 
         public override void Thirst()
         {
-            thirst++;
+            thirst -= 10;
         }
 
         public override void IsThirsty()
@@ -417,7 +417,7 @@ namespace VirtualZooManagementSystem
 
         public override void Thirst()
         {
-            thirst++;
+            thirst -= 10;
         }
 
         public override void IsThirsty()
