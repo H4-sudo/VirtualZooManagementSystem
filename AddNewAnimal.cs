@@ -39,6 +39,17 @@ namespace VirtualZooManagementSystem
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
+                    string checkQuery = "SELECT COUNT(*) FROM Animals WHERE Name = @Name AND AnimalType = @AnimalType";
+                    SqlCommand checkCommand = new SqlCommand(checkQuery, connection);
+                    checkCommand.Parameters.AddWithValue("@Name", animalName);
+                    checkCommand.Parameters.AddWithValue("@AnimalType", animalType);
+
+                    int existingAnimalsCount = (int)checkCommand.ExecuteScalar();
+                    if (existingAnimalsCount > 0)
+                    {
+                        MessageBox.Show("An animal with the same name and type already exists in the database. Please enter a different name or type.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
 
                     string query = "INSERT INTO Animals (Name, Age, AnimalType) VALUES (@Name, @Age, @AnimalType)";
                     SqlCommand command = new SqlCommand(query, connection);
