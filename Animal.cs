@@ -9,6 +9,12 @@ namespace VirtualZooManagementSystem
         public string Name { get; set; }
         public int Age { get; set; }
 
+        public abstract int HungerLevel { get; }
+
+        public abstract int ThirstLevel { get; }
+        
+        public abstract int EnergyLevel { get; }
+
         public abstract void Eat();
         public abstract void Energy();
         public abstract void Hunger();
@@ -60,6 +66,21 @@ namespace VirtualZooManagementSystem
         int hunger = 10;
         int thirst = 20;
         int energy = 100;
+
+        public override int HungerLevel
+        {
+            get { return hunger; }
+        }
+
+        public override int ThirstLevel
+        {
+            get { return thirst; }
+        }
+
+        public override int EnergyLevel
+        {
+            get { return energy; }
+        }
 
         public override void Hunger()
         {
@@ -126,6 +147,7 @@ namespace VirtualZooManagementSystem
         public override void MakeSound()
         {
             SoundPlayer sound = new SoundPlayer("lion-roar.wav");
+            sound.Play();
         }
 
         public override void StopSound()
@@ -140,6 +162,22 @@ namespace VirtualZooManagementSystem
         int hunger = 10;
         int thirst = 20;
         int energy = 100;
+
+        public override int HungerLevel
+        {
+            get { return hunger; }
+        }
+
+        public override int ThirstLevel
+        {
+            get { return thirst; }
+        }
+
+        public override int EnergyLevel
+        {
+            get { return energy; }
+        }
+
         public override void Hunger()
         {
             Random random = new Random();
@@ -205,6 +243,7 @@ namespace VirtualZooManagementSystem
         public override void MakeSound()
         {
             SoundPlayer sound = new SoundPlayer("elephant.wav");
+            sound.Play();
         }
 
         public override void StopSound()
@@ -219,6 +258,21 @@ namespace VirtualZooManagementSystem
         int hunger = 10;
         int thirst = 20;
         int energy = 100;
+        public override int HungerLevel
+        {
+            get { return hunger; }
+        }
+
+        public override int ThirstLevel
+        {
+            get { return thirst; }
+        }
+
+        public override int EnergyLevel
+        {
+            get { return energy; }
+        }
+
         public override void Hunger()
         {
             Random random = new Random();
@@ -284,6 +338,7 @@ namespace VirtualZooManagementSystem
         public override void MakeSound()
         {
             SoundPlayer sound = new SoundPlayer("parrot.wav");
+            sound.Play();
         }
 
         public override void StopSound()
@@ -298,6 +353,22 @@ namespace VirtualZooManagementSystem
         int hunger = 10;
         int thirst = 20;
         int energy = 100;
+
+        public override int HungerLevel
+        {
+            get { return hunger; }
+        }
+
+        public override int ThirstLevel
+        {
+            get { return thirst; }
+        }
+
+        public override int EnergyLevel
+        {
+            get { return energy; }
+        }
+
         public override void Hunger()
         {
             Random random = new Random();
@@ -363,6 +434,7 @@ namespace VirtualZooManagementSystem
         public override void MakeSound()
         {
             SoundPlayer sound = new SoundPlayer("turtle.wav");
+            sound.Play();
         }
 
         public override void StopSound()

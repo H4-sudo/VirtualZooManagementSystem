@@ -55,6 +55,7 @@ namespace VirtualZooManagementSystem
                     {
                         MessageBox.Show("Failed to add animal.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+                    
                 }
             }
             catch (Exception ex)

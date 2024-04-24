@@ -13,17 +13,20 @@ namespace VirtualZooManagementSystem
     public partial class FeedAnimals : UserControl
     {
         private Animal selectedAnimal;
+
         public FeedAnimals()
         {
             InitializeComponent();
             
+
             List<string> animalTypes = AnimalDatabase.GetAllAnimalTypes();
+            List<string> animalNames = AnimalDatabase.GetAllAnimalNames();
+            
             foreach (string type in animalTypes)
             {
                 AnimalTypeComboBox.Items.Add(type);
             }
-
-            List<string> animalNames = AnimalDatabase.GetAllAnimalNames();
+            
             foreach (string name in  animalNames)
             {
                 AnimalNameComboBox.Items.Add(name);
@@ -37,7 +40,7 @@ namespace VirtualZooManagementSystem
             {
                 selectedAnimal.Eat();
                 selectedAnimal.Energy();
-                MessageBox.Show($"{selectedAnimal.Name} has been fed.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"{selectedAnimal.Name} has been fed.\nEnergy: {selectedAnimal.EnergyLevel} | Hunger: {selectedAnimal.HungerLevel}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
         }
@@ -49,7 +52,7 @@ namespace VirtualZooManagementSystem
             {
                 selectedAnimal.Thirst();
                 selectedAnimal.Energy();
-                MessageBox.Show($"{selectedAnimal.Name} has been given water.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"{selectedAnimal.Name} has been given water.\nEnergy: {selectedAnimal.EnergyLevel} | Thirst: {selectedAnimal.ThirstLevel}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
         }
@@ -70,7 +73,7 @@ namespace VirtualZooManagementSystem
             if (selectedAnimal != null)
             {
                 selectedAnimal.Sleep();
-                MessageBox.Show($"{selectedAnimal.Name} is resting.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"{selectedAnimal.Name} is resting.\nEnergy: {selectedAnimal.EnergyLevel}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
         }
@@ -98,7 +101,8 @@ namespace VirtualZooManagementSystem
                 selectedAnimal.Move();
                 selectedAnimal.Hunger();
                 selectedAnimal.IsThirsty();
-                MessageBox.Show($"{selectedAnimal.Name} had some fun with you.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"{selectedAnimal.Name} had some fun with you.\nEnergy: {selectedAnimal.EnergyLevel} | Hunger: {selectedAnimal.HungerLevel} | Thirst: {selectedAnimal.ThirstLevel}"
+                    , "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 selectedAnimal.Stop();
             }
         }
@@ -113,5 +117,6 @@ namespace VirtualZooManagementSystem
                 selectedAnimal.StopSound();
             }
         }
+
     }
 }
