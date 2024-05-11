@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Data.SqlClient;
+using System.Data.SQLite;
 
 namespace VirtualZooManagementSystem
 {
@@ -10,23 +10,18 @@ namespace VirtualZooManagementSystem
         int animalAge;
         string animalType;
 
-        private string connectionString = "Data Source=H4Z3Y_\\JEFFY;Initial Catalog=animals;Integrated Security=True;";
+        private string connectionString = "Data Source=virtualzoo.db;Version=3;";
+
         public AddNewAnimal()
         {
             InitializeComponent();
         }
 
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void addAnimalInfoButton_Click(object sender, EventArgs e)
         {
-            string animalName = animalNameInput.Text;
-            int animalAge = (int)animalAgeInput.Value;
-            string animalType = GetSelectedAnimalType();
+            animalName = animalNameInput.Text;
+            animalAge = (int)animalAgeInput.Value;
+            animalType = GetSelectedAnimalType();
 
             if (string.IsNullOrEmpty(animalName) || string.IsNullOrEmpty(animalType))
             {
@@ -36,37 +31,40 @@ namespace VirtualZooManagementSystem
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
                 {
                     connection.Open();
                     string checkQuery = "SELECT COUNT(*) FROM Animals WHERE Name = @Name AND AnimalType = @AnimalType";
-                    SqlCommand checkCommand = new SqlCommand(checkQuery, connection);
-                    checkCommand.Parameters.AddWithValue("@Name", animalName);
-                    checkCommand.Parameters.AddWithValue("@AnimalType", animalType);
-
-                    int existingAnimalsCount = (int)checkCommand.ExecuteScalar();
-                    if (existingAnimalsCount > 0)
+                    using (SQLiteCommand checkCommand = new SQLiteCommand(checkQuery, connection))
                     {
-                        MessageBox.Show("An animal with the same name and type already exists in the database. Please enter a different name or type.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
+                        checkCommand.Parameters.AddWithValue("@Name", animalName);
+                        checkCommand.Parameters.AddWithValue("@AnimalType", animalType);
+
+                        int existingAnimalsCount = Convert.ToInt32(checkCommand.ExecuteScalar());
+                        if (existingAnimalsCount > 0)
+                        {
+                            MessageBox.Show("An animal with the same name and type already exists in the database. Please enter a different name or type.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
                     }
 
                     string query = "INSERT INTO Animals (Name, Age, AnimalType) VALUES (@Name, @Age, @AnimalType)";
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@Name", animalName);
-                    command.Parameters.AddWithValue("@Age", animalAge);
-                    command.Parameters.AddWithValue("@AnimalType", animalType);
+                    using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Name", animalName);
+                        command.Parameters.AddWithValue("@Age", animalAge);
+                        command.Parameters.AddWithValue("@AnimalType", animalType);
 
-                    int rowsAffected = command.ExecuteNonQuery();
-                    if (rowsAffected > 0)
-                    {
-                        MessageBox.Show("Animal added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        int rowsAffected = command.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Animal added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to add animal.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
-                    else
-                    {
-                        MessageBox.Show("Failed to add animal.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    
                 }
             }
             catch (Exception ex)
@@ -82,42 +80,6 @@ namespace VirtualZooManagementSystem
             if (parrotSelection.Checked) return parrotSelection.Text;
             if (turtleSelection.Checked) return turtleSelection.Text;
             return string.Empty;
-        }
-
-
-        private void elephantSelection_CheckedChanged(object sender, EventArgs e)
-        {
-            animalType = elephantSelection.Text;
-        }
-
-        private void lionSelection_CheckedChanged(object sender, EventArgs e)
-        {
-            animalType = lionSelection.Text;
-
-        }
-
-        private void animalNameInput_TextChanged(object sender, EventArgs e)
-        {
-            animalName = animalNameInput.Text;
-            
-        }
-
-        private void animalAgeInput_ValueChanged(object sender, EventArgs e)
-        {
-            animalAge = (int)animalAgeInput.Value;
-
-        }
-
-        private void parrotSelection_CheckedChanged(object sender, EventArgs e)
-        {
-            animalType = parrotSelection.Text;
-
-        }
-
-        private void turtleSelection_CheckedChanged(object sender, EventArgs e)
-        {
-            animalType = turtleSelection.Text;
-
         }
     }
 }

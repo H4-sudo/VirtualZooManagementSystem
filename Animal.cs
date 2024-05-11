@@ -5,9 +5,10 @@ namespace VirtualZooManagementSystem
 {
     public abstract class Animal : IFeedable, IMovable, ISleepable, ISoundable, IThirsty
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public int Age { get; set; }
+        public int ID { get; private set; }
+        public string Name { get; private set; }
+        public int Age { get; private set; }
+        public string Type { get; private set; }
 
         public abstract int HungerLevel { get; }
 
