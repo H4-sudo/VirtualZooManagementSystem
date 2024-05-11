@@ -31,3 +31,7 @@
 
 - Luckily as a simple management system it works as inteded for the most part, this will not be abandoned, however the development will continue after the marks have been released.
 - Any suggestions will be greatly appreciated.
+
+## Cloning
+
+- To have access to the source code, clone the repository directly from my GitHub
