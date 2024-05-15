@@ -57,3 +57,7 @@ Feedback and contributions to the Virtual Zoo Management System are welcome and 
 
 This project is licensed under the [AGPL-3.0 License](LICENSE).
 
+## Credits
+
+Henrico Swanepoel (H4-sudo)
+
