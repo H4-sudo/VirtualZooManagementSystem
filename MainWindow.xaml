@@ -1,0 +1,32 @@
+﻿<Window x:Class="VirtualZooManagementFA3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VirtualZooManagementFA3"
+        mc:Ignorable="d"
+        Title="Virtual Zoo Management System" Height="600" Width="800">
+    <Grid>
+        <!-- Main content area -->
+        <TabControl>
+            <!-- Add New Animal tab -->
+            <TabItem Header="Add New Animal">
+                <!-- Include AddNewAnimal UserControl here -->
+                <local:AddNewAnimal />
+            </TabItem>
+            <!-- Feed Animals tab -->
+            <TabItem Header="Feed Animals">
+                <!-- Include FeedAnimals UserControl here -->
+                <local:FeedAnimals />
+            </TabItem>
+            <!-- See All Animals tab -->
+            <TabItem Header="See All Animals">
+                <!-- Include SeeAllAnimals UserControl here -->
+                <local:SeeAllAnimals />
+            </TabItem>
+            <TabItem Header="Animal Details">
+                <local:AnimalDetails />
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

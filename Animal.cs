@@ -1,32 +1,89 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Media;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace VirtualZooManagementSystem
+namespace VirtualZooManagementFA3
 {
-    public abstract class Animal : IFeedable, IMovable, ISleepable, ISoundable, IThirsty
+    public abstract class Animal : IFeedable, IMovable, ISleepable, IThirsty
     {
-        public int ID { get; private set; }
-        public string Name { get; private set; }
-        public int Age { get; private set; }
-        public string Type { get; private set; }
+        protected int hunger = 10;
+        protected int thirst = 20;
+        protected int energy = 100;
+        protected Random random = new Random();
+
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public string Type { get; set; }
 
         public abstract int HungerLevel { get; }
 
         public abstract int ThirstLevel { get; }
-        
+
         public abstract int EnergyLevel { get; }
 
+        public DietInfo DietInfo { get; set; }
+        public HabitatType Habitat { get; protected set; }
+        public AnimalType AnimalType { get; protected set; }
+
+
         public abstract void Eat();
-        public abstract void Energy();
+        public abstract void Drink();
         public abstract void Hunger();
         public abstract void IsHungry();
         public abstract void IsThirsty();
-        public abstract void MakeSound();
         public abstract void Move();
+        public abstract void Play();
         public abstract void Sleep();
         public abstract void Stop();
-        public abstract void StopSound();
         public abstract void Thirst();
+    }
+
+    public struct DietInfo
+    {
+        public FoodType FoodType { get; set; }
+        public FeedingSchedule FeedingSchedule { get; set; }
+        public int WaterIntake { get; set; }
+    }
+
+    public enum AnimalType
+    {
+        Mammal,
+        Bird,
+        Reptile,
+        Amphibian,
+        Fish,
+        Invertebrate
+    }
+
+    public enum FoodType
+    {
+        Carnivore,
+        Herbivore,
+        Omnivore
+    }
+
+    public enum HabitatType
+    {
+        Desert,
+        Forest,
+        Urban,
+        Mountain,
+        Grassland,
+        Tundra,
+        Aquatic
+    }
+
+    public enum FeedingSchedule
+    {
+        Regular,
+        Irregular,
+        Morning,
+        Afternoon,
+        Evening
     }
 
     public interface IFeedable
@@ -34,19 +91,16 @@ namespace VirtualZooManagementSystem
         void IsHungry();
         void Eat();
         void Hunger();
-        void Energy();
     }
 
     public interface IMovable
     {
         void Move();
-        void Energy();
         void Stop();
     }
 
     public interface ISleepable
     {
-        void Energy();
         void Sleep();
     }
 
@@ -62,348 +116,439 @@ namespace VirtualZooManagementSystem
         void IsThirsty();
     }
 
+    public interface IClimable
+    {
+        void Climb();
+    }
+
+    public interface ISwimmable
+    {
+        void Swim();
+    }
+
+    public interface IFlyable
+    {
+        void Fly();
+    }
+
     public class Lion : Animal
     {
-        int hunger = 10;
-        int thirst = 20;
-        int energy = 100;
+        public override int HungerLevel => hunger;
+        public override int ThirstLevel => thirst;
+        public override int EnergyLevel => energy;
 
-        public override int HungerLevel
+        public Lion(string name, int age, string type)
         {
-            get { return hunger; }
-        }
-
-        public override int ThirstLevel
-        {
-            get { return thirst; }
-        }
-
-        public override int EnergyLevel
-        {
-            get { return energy; }
+            Name = name;
+            Age = age;
+            Type = type;
+            DietInfo = new DietInfo
+            {
+                FoodType = FoodType.Carnivore,
+                FeedingSchedule = FeedingSchedule.Regular,
+                WaterIntake = 50
+            };
+            Habitat = HabitatType.Grassland;
+            AnimalType = AnimalType.Mammal;
         }
 
         public override void Hunger()
         {
-            Random random = new Random();
-            hunger += random.Next(1, 10);
+            // Simulate hunger increase over time or activity
+            hunger += random.Next(1, 10); // Increase hunger randomly
+            if (hunger > 100)
+            {
+                hunger = 100; // Cap hunger at 100
+            }
             if (hunger > 50)
             {
-                this.IsHungry();
-            } else if (hunger > 100)
-            {
-                energy = 10;
+                IsHungry(); // Invoke IsHungry() method when hunger exceeds a certain threshold
             }
         }
 
         public override void IsHungry()
         {
-            energy--;
+            energy--; // Decrease energy when the lion is hungry
         }
 
         public override void Eat()
         {
-            hunger -= 10;
+            hunger -= 10; // Decrease hunger when the lion eats
+            if (hunger < 0)
+            {
+                hunger = 0; // Ensure hunger does not go below 0
+            }
+        }
+
+        public override void Sleep()
+        {
+            energy = Math.Min(energy + 20, 100);
+            hunger = Math.Min(hunger + 10, 100);
+            thirst = Math.Min(thirst + 10, 100);
+        }
+
+        public override void Play()
+        {
+            energy = Math.Max(energy - 20, 0);
+            hunger = Math.Min(hunger + 15, 100);
+            thirst = Math.Min(thirst + 15, 100);
+        }
+
+        public override void Drink()
+        {
+            thirst -= 10;
+            if (thirst < 0)
+            {
+                thirst = 0;
+            }
+        }
+
+        public override void Thirst()
+        {
+            // Simulate thirst increase over time or activity
+            thirst += random.Next(1, 10); // Increase thirst randomly
+            if (thirst > 100)
+            {
+                thirst = 100; // Cap thirst at 100
+            }
+            if (thirst > 50)
+            {
+                IsThirsty(); // Invoke IsThirsty() method when thirst exceeds a certain threshold
+            }
+        }
+
+        public override void IsThirsty()
+        {
+            energy--; // Decrease energy when the lion is thirsty
         }
 
         public override void Move()
         {
-            energy--;
-            thirst++;
-            hunger++;
-
-        }
-
-        public override void Energy()
-        {
-            energy++;
+            energy--; // Decrease energy when the lion moves
+            thirst++; // Increase thirst when the lion moves
+            hunger++; // Increase hunger when the lion moves
         }
 
         public override void Stop()
         {
             energy++;
-        }
-
-        public override void Sleep()
-        {
-            energy += 10;
-        }
-
-        public override void Thirst()
-        {
-            thirst += 10;
-        }
-
-        public override void IsThirsty()
-        {
-            if (thirst > 50)
-            {
-                energy--;
-            } else if (thirst > 100)
-            {
-                energy = 10;
-            }
-        }
-
-        public override void MakeSound()
-        {
-            SoundPlayer sound = new SoundPlayer("lion-roar.wav");
-            sound.Play();
-        }
-
-        public override void StopSound()
-        {
-            Console.WriteLine("...");
         }
 
     }
 
     public class Elephant : Animal
     {
-        int hunger = 10;
-        int thirst = 20;
-        int energy = 100;
+        public override int HungerLevel => hunger;
+        public override int ThirstLevel => thirst;
+        public override int EnergyLevel => energy;
 
-        public override int HungerLevel
+        public Elephant(string name, int age, string type)
         {
-            get { return hunger; }
-        }
-
-        public override int ThirstLevel
-        {
-            get { return thirst; }
-        }
-
-        public override int EnergyLevel
-        {
-            get { return energy; }
+            Name = name;
+            Age = age;
+            Type = type;
+            DietInfo = new DietInfo
+            {
+                FoodType = FoodType.Herbivore,
+                FeedingSchedule = FeedingSchedule.Regular,
+                WaterIntake = 100
+            };
+            Habitat = HabitatType.Grassland;
+            AnimalType = AnimalType.Mammal;
         }
 
         public override void Hunger()
         {
-            Random random = new Random();
-            hunger += random.Next(1, 10);
+            // Simulate hunger increase over time or activity
+            hunger += random.Next(1, 10); // Increase hunger randomly
+            if (hunger > 100)
+            {
+                hunger = 100; // Cap hunger at 100
+            }
             if (hunger > 50)
             {
-                this.IsHungry();
-            } else if (hunger > 100)
+                IsHungry(); // Invoke IsHungry() method when hunger exceeds a certain threshold
+            }
+        }
+
+        public override void Drink()
+        {
+            thirst -= 10;
+            if (thirst < 0)
             {
-                energy = 10;
+                thirst = 0;
             }
         }
 
         public override void IsHungry()
         {
-            energy--;
+            energy--; // Decrease energy when the lion is hungry
         }
 
         public override void Eat()
         {
-            hunger -= 10;
+            hunger -= 10; // Decrease hunger when the lion eats
+            if (hunger < 0)
+            {
+                hunger = 0; // Ensure hunger does not go below 0
+            }
+        }
+
+        public override void Sleep()
+        {
+            energy = Math.Min(energy + 20, 100);
+            hunger = Math.Min(hunger + 10, 100);
+            thirst = Math.Min(thirst + 10, 100);
+        }
+
+        public override void Play()
+        {
+            energy = Math.Max(energy - 20, 0);
+            hunger = Math.Min(hunger + 15, 100);
+            thirst = Math.Min(thirst + 15, 100);
+        }
+
+        public override void Thirst()
+        {
+            // Simulate thirst increase over time or activity
+            thirst += random.Next(1, 10); // Increase thirst randomly
+            if (thirst > 100)
+            {
+                thirst = 100; // Cap thirst at 100
+            }
+            if (thirst > 50)
+            {
+                IsThirsty(); // Invoke IsThirsty() method when thirst exceeds a certain threshold
+            }
+        }
+
+        public override void IsThirsty()
+        {
+            energy--; // Decrease energy when the lion is thirsty
         }
 
         public override void Move()
         {
-            energy--;
-            thirst++;
-            hunger++;
-
-        }
-
-        public override void Energy()
-        {
-            energy++;
+            energy--; // Decrease energy when the lion moves
+            thirst++; // Increase thirst when the lion moves
+            hunger++; // Increase hunger when the lion moves
         }
 
         public override void Stop()
         {
             energy++;
-        }
-
-        public override void Sleep()
-        {
-            energy += 10;
-        }
-
-        public override void Thirst()
-        {
-            thirst -= 10;
-        }
-
-        public override void IsThirsty()
-        {
-            if (thirst > 50)
-            {
-                energy--;
-            } else if (thirst > 100)
-            {
-                energy = 10;
-            }
-        }
-
-        public override void MakeSound()
-        {
-            SoundPlayer sound = new SoundPlayer("elephant.wav");
-            sound.Play();
-        }
-
-        public override void StopSound()
-        {
-            Console.WriteLine("...");
         }
 
     }
 
     public class Parrot : Animal
     {
-        int hunger = 10;
-        int thirst = 20;
-        int energy = 100;
-        public override int HungerLevel
+        public override int HungerLevel => hunger;
+        public override int ThirstLevel => thirst;
+        public override int EnergyLevel => energy;
+
+        public Parrot(string name, int age, string type)
         {
-            get { return hunger; }
+            Name = name;
+            Age = age;
+            Type = type;
+            DietInfo = new DietInfo
+            {
+                FoodType = FoodType.Herbivore,
+                FeedingSchedule = FeedingSchedule.Morning,
+                WaterIntake = 1
+            };
+            Habitat = HabitatType.Grassland;
+            AnimalType = AnimalType.Bird;
         }
 
-        public override int ThirstLevel
+        public void Fly()
         {
-            get { return thirst; }
-        }
-
-        public override int EnergyLevel
-        {
-            get { return energy; }
+            energy = Math.Max(energy - 10, 0);
+            hunger = Math.Min(hunger + 10, 100);
+            thirst = Math.Min(thirst + 10, 100);
         }
 
         public override void Hunger()
         {
-            Random random = new Random();
-            hunger += random.Next(1, 10);
+            // Simulate hunger increase over time or activity
+            hunger += random.Next(1, 10); // Increase hunger randomly
+            if (hunger > 100)
+            {
+                hunger = 100; // Cap hunger at 100
+            }
             if (hunger > 50)
             {
-                this.IsHungry();
-            } else if (hunger > 100)
-            {
-                energy = 10;
+                IsHungry(); // Invoke IsHungry() method when hunger exceeds a certain threshold
             }
         }
 
         public override void IsHungry()
         {
-            energy--;
+            energy--; // Decrease energy when the lion is hungry
         }
 
         public override void Eat()
         {
-            hunger -= 10;
+            hunger -= 10; // Decrease hunger when the lion eats
+            if (hunger < 0)
+            {
+                hunger = 0; // Ensure hunger does not go below 0
+            }
+        }
+
+        public override void Sleep()
+        {
+            energy = Math.Min(energy + 20, 100);
+            hunger = Math.Min(hunger + 10, 100);
+            thirst = Math.Min(thirst + 10, 100);
+        }
+
+        public override void Play()
+        {
+            energy = Math.Max(energy - 20, 0);
+            hunger = Math.Min(hunger + 15, 100);
+            thirst = Math.Min(thirst + 15, 100);
+        }
+
+        public override void Drink()
+        {
+            thirst -= 10;
+            if (thirst < 0)
+            {
+                thirst = 0;
+            }
+        }
+
+        public override void Thirst()
+        {
+            // Simulate thirst increase over time or activity
+            thirst += random.Next(1, 10); // Increase thirst randomly
+            if (thirst > 100)
+            {
+                thirst = 100; // Cap thirst at 100
+            }
+            if (thirst > 50)
+            {
+                IsThirsty(); // Invoke IsThirsty() method when thirst exceeds a certain threshold
+            }
+        }
+
+        public override void IsThirsty()
+        {
+            energy--; // Decrease energy when the lion is thirsty
         }
 
         public override void Move()
         {
-            energy--;
-            thirst++;
-            hunger++;
-
-        }
-
-        public override void Energy()
-        {
-            energy++;
+            energy--; // Decrease energy when the lion moves
+            thirst++; // Increase thirst when the lion moves
+            hunger++; // Increase hunger when the lion moves
         }
 
         public override void Stop()
         {
             energy++;
-        }
-
-        public override void Sleep()
-        {
-            energy += 10;
-        }
-
-        public override void Thirst()
-        {
-            thirst -= 10;
-        }
-
-        public override void IsThirsty()
-        {
-            if (thirst > 50)
-            {
-                energy--;
-            } else if (thirst > 100)
-            {
-                energy = 10;
-            }
-        }
-
-        public override void MakeSound()
-        {
-            SoundPlayer sound = new SoundPlayer("parrot.wav");
-            sound.Play();
-        }
-
-        public override void StopSound()
-        {
-            Console.WriteLine("...");
         }
 
     }
 
     public class Turtle : Animal
     {
-        int hunger = 10;
-        int thirst = 20;
-        int energy = 100;
+        public override int HungerLevel => hunger;
+        public override int ThirstLevel => thirst;
+        public override int EnergyLevel => energy;
 
-        public override int HungerLevel
+        public Turtle(string name, int age, string type)
         {
-            get { return hunger; }
-        }
-
-        public override int ThirstLevel
-        {
-            get { return thirst; }
-        }
-
-        public override int EnergyLevel
-        {
-            get { return energy; }
+            Name = name;
+            Age = age;
+            Type = type;
+            DietInfo = new DietInfo
+            {
+                FoodType = FoodType.Herbivore,
+                FeedingSchedule = FeedingSchedule.Regular,
+                WaterIntake = 2
+            };
+            Habitat = HabitatType.Grassland;
+            AnimalType = AnimalType.Mammal;
         }
 
         public override void Hunger()
         {
-            Random random = new Random();
-            hunger += random.Next(1, 10);
+            // Simulate hunger increase over time or activity
+            hunger += random.Next(1, 10); // Increase hunger randomly
+            if (hunger > 100)
+            {
+                hunger = 100; // Cap hunger at 100
+            }
             if (hunger > 50)
             {
-                this.IsHungry();
-            } else if (hunger > 100)
-            {
-                energy = 10;
+                IsHungry(); // Invoke IsHungry() method when hunger exceeds a certain threshold
             }
         }
 
         public override void IsHungry()
         {
-            energy--;
+            energy--; // Decrease energy when the lion is hungry
         }
 
         public override void Eat()
         {
-            hunger -= 10;
+            hunger -= 10; // Decrease hunger when the lion eats
+            if (hunger < 0)
+            {
+                hunger = 0; // Ensure hunger does not go below 0
+            }
+        }
+
+        public override void Sleep()
+        {
+            energy = Math.Min(energy + 20, 100);
+            hunger = Math.Min(hunger + 10, 100);
+            thirst = Math.Min(thirst + 10, 100);
+        }
+
+        public override void Play()
+        {
+            energy = Math.Max(energy - 20, 0);
+            hunger = Math.Min(hunger + 15, 100);
+            thirst = Math.Min(thirst + 15, 100);
+        }
+
+        public override void Drink()
+        {
+            thirst -= 10;
+            if (thirst < 0)
+            {
+                thirst = 0;
+            }
+        }
+
+        public override void Thirst()
+        {
+            // Simulate thirst increase over time or activity
+            thirst += random.Next(1, 10); // Increase thirst randomly
+            if (thirst > 100)
+            {
+                thirst = 100; // Cap thirst at 100
+            }
+            if (thirst > 50)
+            {
+                IsThirsty(); // Invoke IsThirsty() method when thirst exceeds a certain threshold
+            }
+        }
+
+        public override void IsThirsty()
+        {
+            energy--; // Decrease energy when the lion is thirsty
         }
 
         public override void Move()
         {
-            energy--;
-            thirst++;
-            hunger++;
-
-        }
-
-        public override void Energy()
-        {
-            energy++;
+            energy--; // Decrease energy when the lion moves
+            thirst++; // Increase thirst when the lion moves
+            hunger++; // Increase hunger when the lion moves
         }
 
         public override void Stop()
@@ -411,39 +556,432 @@ namespace VirtualZooManagementSystem
             energy++;
         }
 
+    }
+
+    public class Monkey : Animal
+    {
+        public override int HungerLevel => hunger;
+        public override int ThirstLevel => thirst;
+        public override int EnergyLevel => energy;
+
+        public Monkey(string name, int age, string type)
+        {
+            Name = name;
+            Age = age;
+            Type = type;
+            DietInfo = new DietInfo
+            {
+                FoodType = FoodType.Omnivore,
+                FeedingSchedule = FeedingSchedule.Regular,
+                WaterIntake = 2
+            };
+            Habitat = HabitatType.Grassland;
+            AnimalType = AnimalType.Mammal;
+        }
+
+        public void Climb()
+        {
+            energy = Math.Max(energy - 10, 0);
+            hunger = Math.Min(hunger + 10, 100);
+            thirst = Math.Min(thirst + 10, 100);
+        }
+
+        public override void Hunger()
+        {
+            // Simulate hunger increase over time or activity
+            hunger += random.Next(1, 10); // Increase hunger randomly
+            if (hunger > 100)
+            {
+                hunger = 100; // Cap hunger at 100
+            }
+            if (hunger > 50)
+            {
+                IsHungry(); // Invoke IsHungry() method when hunger exceeds a certain threshold
+            }
+        }
+
+        public override void IsHungry()
+        {
+            energy--; // Decrease energy when the lion is hungry
+        }
+
+        public override void Eat()
+        {
+            hunger -= 10; // Decrease hunger when the lion eats
+            if (hunger < 0)
+            {
+                hunger = 0; // Ensure hunger does not go below 0
+            }
+        }
+
         public override void Sleep()
         {
-            energy += 10;
+            energy = Math.Min(energy + 20, 100);
+            hunger = Math.Min(hunger + 10, 100);
+            thirst = Math.Min(thirst + 10, 100);
+        }
+
+        public override void Play()
+        {
+            energy = Math.Max(energy - 20, 0);
+            hunger = Math.Min(hunger + 15, 100);
+            thirst = Math.Min(thirst + 15, 100);
+        }
+
+        public override void Drink()
+        {
+            thirst -= 10;
+            if (thirst < 0)
+            {
+                thirst = 0;
+            }
         }
 
         public override void Thirst()
         {
-            thirst -= 10;
+            // Simulate thirst increase over time or activity
+            thirst += random.Next(1, 10); // Increase thirst randomly
+            if (thirst > 100)
+            {
+                thirst = 100; // Cap thirst at 100
+            }
+            if (thirst > 50)
+            {
+                IsThirsty(); // Invoke IsThirsty() method when thirst exceeds a certain threshold
+            }
         }
 
         public override void IsThirsty()
         {
-            if (thirst > 50)
-            {
-                energy--;
-            } else if (thirst > 100)
-            {
-                energy = 10;
-            }
+            energy--; // Decrease energy when the lion is thirsty
         }
 
-        public override void MakeSound()
+        public override void Move()
         {
-            SoundPlayer sound = new SoundPlayer("turtle.wav");
-            sound.Play();
+            energy--; // Decrease energy when the lion moves
+            thirst++; // Increase thirst when the lion moves
+            hunger++; // Increase hunger when the lion moves
         }
 
-        public override void StopSound()
+        public override void Stop()
         {
-            Console.WriteLine("...");
+            energy++;
         }
 
     }
 
-}
+    public class PolarBear : Animal
+    {
+        public override int HungerLevel => hunger;
+        public override int ThirstLevel => thirst;
+        public override int EnergyLevel => energy;
 
+        public PolarBear(string name, int age, string type)
+        {
+            Name = name;
+            Age = age;
+            Type = type;
+            DietInfo = new DietInfo
+            {
+                FoodType = FoodType.Carnivore,
+                FeedingSchedule = FeedingSchedule.Regular,
+                WaterIntake = 40
+            };
+            Habitat = HabitatType.Grassland;
+            AnimalType = AnimalType.Mammal;
+        }
+
+        public override void Hunger()
+        {
+            // Simulate hunger increase over time or activity
+            hunger += random.Next(1, 10); // Increase hunger randomly
+            if (hunger > 100)
+            {
+                hunger = 100; // Cap hunger at 100
+            }
+            if (hunger > 50)
+            {
+                IsHungry(); // Invoke IsHungry() method when hunger exceeds a certain threshold
+            }
+        }
+
+        public override void IsHungry()
+        {
+            energy--; // Decrease energy when the lion is hungry
+        }
+
+        public override void Eat()
+        {
+            hunger -= 10; // Decrease hunger when the lion eats
+            if (hunger < 0)
+            {
+                hunger = 0; // Ensure hunger does not go below 0
+            }
+        }
+
+        public override void Sleep()
+        {
+            energy = Math.Min(energy + 20, 100);
+            hunger = Math.Min(hunger + 10, 100);
+            thirst = Math.Min(thirst + 10, 100);
+        }
+
+        public override void Play()
+        {
+            energy = Math.Max(energy - 20, 0);
+            hunger = Math.Min(hunger + 15, 100);
+            thirst = Math.Min(thirst + 15, 100);
+        }
+
+        public override void Drink()
+        {
+            thirst -= 10;
+            if (thirst < 0)
+            {
+                thirst = 0;
+            }
+        }
+
+        public override void Thirst()
+        {
+            // Simulate thirst increase over time or activity
+            thirst += random.Next(1, 10); // Increase thirst randomly
+            if (thirst > 100)
+            {
+                thirst = 100; // Cap thirst at 100
+            }
+            if (thirst > 50)
+            {
+                IsThirsty(); // Invoke IsThirsty() method when thirst exceeds a certain threshold
+            }
+        }
+
+        public override void IsThirsty()
+        {
+            energy--; // Decrease energy when the lion is thirsty
+        }
+
+        public override void Move()
+        {
+            energy--; // Decrease energy when the lion moves
+            thirst++; // Increase thirst when the lion moves
+            hunger++; // Increase hunger when the lion moves
+        }
+
+        public override void Stop()
+        {
+            energy++;
+        }
+
+    }
+
+    public class Giraffe : Animal
+    {
+        public override int HungerLevel => hunger;
+        public override int ThirstLevel => thirst;
+        public override int EnergyLevel => energy;
+
+        public Giraffe(string name, int age, string type)
+        {
+            Name = name;
+            Age = age;
+            Type = type;
+            DietInfo = new DietInfo
+            {
+                FoodType = FoodType.Herbivore,
+                FeedingSchedule = FeedingSchedule.Regular,
+                WaterIntake = 35
+            };
+            Habitat = HabitatType.Grassland;
+            AnimalType = AnimalType.Mammal;
+        }
+
+        public override void Hunger()
+        {
+            // Simulate hunger increase over time or activity
+            hunger += random.Next(1, 10); // Increase hunger randomly
+            if (hunger > 100)
+            {
+                hunger = 100; // Cap hunger at 100
+            }
+            if (hunger > 50)
+            {
+                IsHungry(); // Invoke IsHungry() method when hunger exceeds a certain threshold
+            }
+        }
+
+        public override void IsHungry()
+        {
+            energy--; // Decrease energy when the lion is hungry
+        }
+
+        public override void Eat()
+        {
+            hunger -= 10; // Decrease hunger when the lion eats
+            if (hunger < 0)
+            {
+                hunger = 0; // Ensure hunger does not go below 0
+            }
+        }
+
+        public override void Sleep()
+        {
+            energy = Math.Min(energy + 20, 100);
+            hunger = Math.Min(hunger + 10, 100);
+            thirst = Math.Min(thirst + 10, 100);
+        }
+
+        public override void Play()
+        {
+            energy = Math.Max(energy - 20, 0);
+            hunger = Math.Min(hunger + 15, 100);
+            thirst = Math.Min(thirst + 15, 100);
+        }
+
+        public override void Drink()
+        {
+            thirst -= 10;
+            if (thirst < 0)
+            {
+                thirst = 0;
+            }
+        }
+
+        public override void Thirst()
+        {
+            // Simulate thirst increase over time or activity
+            thirst += random.Next(1, 10); // Increase thirst randomly
+            if (thirst > 100)
+            {
+                thirst = 100; // Cap thirst at 100
+            }
+            if (thirst > 50)
+            {
+                IsThirsty(); // Invoke IsThirsty() method when thirst exceeds a certain threshold
+            }
+        }
+
+        public override void IsThirsty()
+        {
+            energy--; // Decrease energy when the lion is thirsty
+        }
+
+        public override void Move()
+        {
+            energy--; // Decrease energy when the lion moves
+            thirst++; // Increase thirst when the lion moves
+            hunger++; // Increase hunger when the lion moves
+        }
+
+        public override void Stop()
+        {
+            energy++;
+        }
+
+    }
+
+    public class Kangaroo : Animal
+    {
+        public override int HungerLevel => hunger;
+        public override int ThirstLevel => thirst;
+        public override int EnergyLevel => energy;
+
+        public Kangaroo(string name, int age, string type)
+        {
+            Name = name;
+            Age = age;
+            Type = type;
+            DietInfo = new DietInfo
+            {
+                FoodType = FoodType.Herbivore,
+                FeedingSchedule = FeedingSchedule.Regular,
+                WaterIntake = 20
+            };
+            Habitat = HabitatType.Grassland;
+            AnimalType = AnimalType.Mammal;
+        }
+
+        public override void Hunger()
+        {
+            // Simulate hunger increase over time or activity
+            hunger += random.Next(1, 10); // Increase hunger randomly
+            if (hunger > 100)
+            {
+                hunger = 100; // Cap hunger at 100
+            }
+            if (hunger > 50)
+            {
+                IsHungry(); // Invoke IsHungry() method when hunger exceeds a certain threshold
+            }
+        }
+
+        public override void IsHungry()
+        {
+            energy--; // Decrease energy when the lion is hungry
+        }
+
+        public override void Eat()
+        {
+            hunger -= 10; // Decrease hunger when the lion eats
+            if (hunger < 0)
+            {
+                hunger = 0; // Ensure hunger does not go below 0
+            }
+        }
+
+        public override void Sleep()
+        {
+            energy = Math.Min(energy + 20, 100);
+            hunger = Math.Min(hunger + 10, 100);
+            thirst = Math.Min(thirst + 10, 100);
+        }
+
+        public override void Play()
+        {
+            energy = Math.Max(energy - 20, 0);
+            hunger = Math.Min(hunger + 15, 100);
+            thirst = Math.Min(thirst + 15, 100);
+        }
+
+        public override void Drink()
+        {
+            thirst -= 10;
+            if (thirst < 0)
+            {
+                thirst = 0;
+            }
+        }
+
+        public override void Thirst()
+        {
+            // Simulate thirst increase over time or activity
+            thirst += random.Next(1, 10); // Increase thirst randomly
+            if (thirst > 100)
+            {
+                thirst = 100; // Cap thirst at 100
+            }
+            if (thirst > 50)
+            {
+                IsThirsty(); // Invoke IsThirsty() method when thirst exceeds a certain threshold
+            }
+        }
+
+        public override void IsThirsty()
+        {
+            energy--; // Decrease energy when the lion is thirsty
+        }
+
+        public override void Move()
+        {
+            energy--; // Decrease energy when the lion moves
+            thirst++; // Increase thirst when the lion moves
+            hunger++; // Increase hunger when the lion moves
+        }
+
+        public override void Stop()
+        {
+            energy++;
+        }
+
+    }
+}
