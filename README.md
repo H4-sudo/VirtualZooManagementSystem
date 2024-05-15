@@ -55,5 +55,5 @@ Feedback and contributions to the Virtual Zoo Management System are welcome and 
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [AGPL-3.0 License](LICENSE).
 
